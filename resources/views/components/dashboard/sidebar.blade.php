@@ -58,7 +58,7 @@
           </li>
           <li class="nav-item">
             <a href="{{ route('presences.index') }}" class="nav-link {{ request()->is('admin/presences') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-users-cog"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 {{ __('User Attendance') }}
               </p>

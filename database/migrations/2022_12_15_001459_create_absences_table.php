@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->index()->references('id')->on('users')->onDelete('cascade');
             $table->integer('temperature');
+            $table->string('image');
             $table->date('presence_date');
             $table->timestamps();
         });

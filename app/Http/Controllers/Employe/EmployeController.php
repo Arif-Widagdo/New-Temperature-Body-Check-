@@ -7,6 +7,7 @@ use App\Models\Absence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class EmployeController extends Controller
@@ -38,6 +39,7 @@ class EmployeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'temperature' => 'required|integer|min:1, max:255',
+            'image' => 'required|image|file|max:1024',
         ]);
         if (!$validator->passes()) {
             return response()->json(['status' => 0, 'error' => $validator->errors()->toArray(), 'msg' => __('Please complete the input on the form provided')]);
@@ -46,8 +48,13 @@ class EmployeController extends Controller
                 'id' => Uuid::uuid4()->toString(),
                 'user_id' => auth()->user()->id,
                 'temperature' =>  $request->temperature,
+                'image' => $request->image,
                 'presence_date' => now()
             ]);
+            if ($request->file('image')) {
+                $store['image'] = $request->file('image')->store('absence');
+            }
+
             if (!$store->save()) {
                 return response()->json(['status' => 0, 'msg' => __('Failed')]);
             } else {
@@ -60,9 +67,17 @@ class EmployeController extends Controller
     {
         $this->authorize('update', $absence);
 
-        $validated = $request->validate([
+        $rules = ([
             'temperature' => 'required|string|max:255',
         ]);
+
+        $validated = $request->validate($rules);
+        if ($request->file('image') != '') {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validated['image'] = $request->file('image')->store('absence');
+        }
 
         $absence->update($validated);
         return redirect()->back()->with('success', __('Success'));

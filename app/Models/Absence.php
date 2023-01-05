@@ -16,6 +16,7 @@ class Absence extends Model
         'id',
         'user_id',
         'temperature',
+        'image',
         'presence_date'
     ];
 

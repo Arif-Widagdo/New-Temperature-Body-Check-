@@ -51,7 +51,7 @@
                                         {{ $absence->user->position->name }}
                                     </td>
                                     <td>
-                                        @if(intval($absence->temperature) >= 46 && intval($absence->temperature) >= 46)
+                                        {{-- @if(intval($absence->temperature) >= 46 && intval($absence->temperature) >= 46)
                                         <span class="p-2 bg-light rounded border shadow"><i class="fas fa-times-circle text-danger text-lg shadow rounded-circle"></i> Suhu <span class="text-bold p-1">{{ $absence->temperature }}°</span> Sangat Panas </span>
                                         @elseif(intval($absence->temperature) >= 38) 
                                         <span class="p-2 bg-light rounded border shadow"><i class="fas fa-times-circle text-warning text-lg shadow rounded-circle"></i> Suhu <span class="text-bold p-1">{{ $absence->temperature }}°</span> Panas </span>
@@ -59,7 +59,8 @@
                                         <span class="p-2 bg-light rounded border shadow"><i class="fas fa-check-circle text-success text-lg shadow rounded-circle"></i> Suhu <span class="text-bold p-1">{{ $absence->temperature }}°</span> Normal </span>
                                         @elseif(intval($absence->temperature) < 25) 
                                         <span class="p-2 bg-light rounded border shadow"><i class="fas fa-info-circle text-info text-lg shadow rounded-circle"></i> Suhu <span class="text-bold p-1">{{ $absence->temperature }}°</span> Dingin </span>
-                                        @endif
+                                        @endif --}}
+                                        Suhu {{ $absence->temperature }}° 
                                     </td>
                                     <td>
                                         {{ $absence->presence_date }}
@@ -93,7 +94,7 @@
 
     <!-- Customs for pages -->
     <script>
-            $("#tempt").DataTable({
+        $("#tempt").DataTable({
             "responsive": true,
             "lengthChange": true,
             "autoWidth": false,

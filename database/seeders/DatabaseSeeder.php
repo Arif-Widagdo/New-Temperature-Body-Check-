@@ -50,8 +50,8 @@ class DatabaseSeeder extends Seeder
             \App\Models\User::factory()->create([
                 'id' => Uuid::uuid4()->toString(),
                 'id_position' => $position->id,
-                'name' => $position->name . 'Pengguna',
-                'email' => $position->name . '@example.com',
+                'name' => $position->name . ' Pengguna',
+                'email' => $position->slug . '@gmail.com',
                 'status' => 'actived',
                 'gender' => 'M',
                 'password' => Hash::make('password'),
